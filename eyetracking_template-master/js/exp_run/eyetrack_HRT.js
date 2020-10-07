@@ -235,7 +235,7 @@ function init_explogic() {
 
   //Experiment constants
   exp.DUMMY_MODE = true // set to true if want to test without eyetracking
-  exp.N_TRIALS= 26
+  exp.N_TRIALS= 54
   PRECISION_CUTOFF = 50;
   // size of imgs - just for ur records
   IMG_HEIGHT = 473
