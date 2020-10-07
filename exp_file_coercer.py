@@ -1,4 +1,5 @@
 import csv
+import os
 
 def file_coercer(input_file, output_file):
     out = "var exp_lists = ["
@@ -25,8 +26,8 @@ def file_coercer(input_file, output_file):
 
 
 
-file_in_question = "/Users/willclapp/Documents/School/Stanford/20-21/2020_Fall/Psycholinguistics/145_cohort_rhyme/2AFC VWP STIM/Randomization/ListA1_PhonoComp_FINAL.csv"
+file_in_question = "./2AFC VWP STIM/Randomization/ListA1_PhonoComp_FINAL.csv"
 
-output_file = "/Users/willclapp/Documents/School/Stanford/20-21/2020_Fall/Psycholinguistics/145_cohort_rhyme/eyetracking_template-master/js/exp_files/exp_lists.js"
+output_file = "./eyetracking_template-master/js/exp_files/exp_lists.js"
 
 file_coercer(file_in_question, output_file)
