@@ -150,6 +150,8 @@ function make_slides(f) {
         'right_choice' : exp.current_trial.img_right,
         'left_choice_type' : exp.current_trial.img_left_type,
         'right_choice_type' : exp.current_trial.img_right_type,
+        'img_left' : exp.current_trial.img_left,
+        'img_right' : exp.current_trial.img_right,
         'condition': exp.current_trial.condition,
         'current_scene' : exp.actual_scene,
         'alt_scene':exp.alt_scene,
@@ -232,12 +234,12 @@ function make_slides(f) {
 function init_explogic() {
 
   //Experiment constants
-  exp.DUMMY_MODE = false // set to true if want to test without eyetracking
+  exp.DUMMY_MODE = true // set to true if want to test without eyetracking
   exp.N_TRIALS= 26
   PRECISION_CUTOFF = 50;
   // size of imgs - just for ur records
-  IMG_HEIGHT = 500
-  IMG_WIDTH = 167
+  IMG_HEIGHT = 473
+  IMG_WIDTH = 467
 
 
   exp.system = {
@@ -264,15 +266,15 @@ function init_explogic() {
 
   // INITIALIZE EXP LIST
   // ppt is randomly assigned a list at init.
-  var exp_list_nos = ['1','2','3','4']
+  var exp_list_nos = ['A1','A2','B1','B2']
   exp.exp_list_no = _.shuffle(exp_list_nos).pop();
   exp.current_exp_list = exp_lists.filter(a=>a.exp_list==exp.exp_list_no);
   exp.current_exp_list = _.shuffle(exp.current_exp_list);
   // exp.current_exp_list = exp.current_exp_list.slice(1, 3) // Use for testing whether responses etc getting logged properly i.e just have a few trials
 
   // Trial set up (see init_trial_detials.js)
-  assign_imgs_to_trials();
-  add_practice_trials();
+  // assign_imgs_to_trials();
+  // add_practice_trials();
   add_scenenames();
   preloadmedia();
 
