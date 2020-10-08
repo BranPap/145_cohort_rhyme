@@ -67,11 +67,12 @@ function make_slides(f) {
     present: exp.current_exp_list,
     present_handle: function(trial) {
       this.trial_start = Date.now();
+
       if (exp.DUMMY_MODE){
         exp.trial_no = 0
       }
       exp.trial_no += 1;
-      console.log(exp.trial_no)
+      console.log("exp.trial_no:",exp.trial_no)
 
       $("#aud").hide();
 
@@ -82,7 +83,7 @@ function make_slides(f) {
       if (exp.trial_no == 1 || exp.trial_no == 2){
         $("#img_instructions").show();
     }
-
+      console.log("trial", trial)
       exp.display_imgs(exp.current_trial); // get imgs, show them
 
       if (!exp.DUMMY_MODE) {
@@ -110,11 +111,12 @@ function make_slides(f) {
     },
 
     next_trial : function(e){
+      //console.log("CLICKED NEXT TRIAL")
       if (exp.clicked == null ) {
         $(".err").show();
       } else {
         $(".err").hide();
-        console.log(exp.clicked)
+        console.log("img clicked",exp.clicked)
         this.log_responses();
         _stream.apply(this);
         exp.tlist = [];
@@ -126,6 +128,7 @@ function make_slides(f) {
     },
 
     continue : function(e){
+      //console.log("CLICKED CONTINUE")
       exp.endPreview = true
       exp.endPreviewTime = Date.now()
 
@@ -153,9 +156,9 @@ function make_slides(f) {
         'img_left' : exp.current_trial.img_left,
         'img_right' : exp.current_trial.img_right,
         'condition': exp.current_trial.condition,
-        'current_scene' : exp.actual_scene,
-        'alt_scene':exp.alt_scene,
-        'selected_scene': exp.scene_clicked,
+        // 'current_scene' : exp.actual_scene,
+        // 'alt_scene':exp.alt_scene,
+        // 'selected_scene': exp.scene_clicked,
         'criticality' : exp.current_trial.criticality,
         'exp_list' : exp.exp_list_no,
         "start_time" : _s.trial_start,
@@ -278,46 +281,45 @@ function init_explogic() {
   add_scenenames();
   preloadmedia();
 
+    // function display_scenes(trial){
+    //     exp.actual_scene = trial.actual_scene
+    //     exp.alt_scene = trial.alt_scene
+    //     scene_choices = [trial.actual_scene, trial.alt_scene]
+    //     scene_choices = _.shuffle(scene_choices)
+    //     $("#scene_left").text(scene_choices[0]);
+    //     $("#scene_right").text(scene_choices[1]);
+    //     $("#scenewrapper").show();
 
+    //     $("#scene_instructions").hide();
+    //     if (exp.trial_no == 1 || exp.trial_no == 2){
+    //       $("#scene_instructions").show();
+    //     }
 
-    function display_scenes(trial){
-        exp.actual_scene = trial.actual_scene
-        exp.alt_scene = trial.alt_scene
-        scene_choices = [trial.actual_scene, trial.alt_scene]
-        scene_choices = _.shuffle(scene_choices)
-        $("#scene_left").text(scene_choices[0]);
-        $("#scene_right").text(scene_choices[1]);
-        $("#scenewrapper").show();
+    //     var scenes = document.querySelectorAll('.scenenames');
+    //     scenes.forEach(function(scene) {
+    //       $(scene).css("border","0px");
+    //       scene.addEventListener('click', function() {
+    //         if (scene.id == 'scene_left'){
+    //           exp.scene_clicked = $("#scene_left").text()
+    //         } else {
+    //           exp.scene_clicked = $("#scene_right").text()
+    //         }
+    //         $(this).css("border","2px solid red");
+    //         setTimeout(function(){
+    //           $("#scene_instructions").hide();
+    //           $("#scenewrapper").hide();
+    //           $("#next_button").show()}, 1000); // show selection for 1s before clearing
+    //         });
+    //       });
 
-        $("#scene_instructions").hide();
-        if (exp.trial_no == 1 || exp.trial_no == 2){
-          $("#scene_instructions").show();
-        }
-
-        var scenes = document.querySelectorAll('.scenenames');
-        scenes.forEach(function(scene) {
-          $(scene).css("border","0px");
-          scene.addEventListener('click', function() {
-            if (scene.id == 'scene_left'){
-              exp.scene_clicked = $("#scene_left").text()
-            } else {
-              exp.scene_clicked = $("#scene_right").text()
-            }
-            $(this).css("border","2px solid red");
-            setTimeout(function(){
-              $("#scene_instructions").hide();
-              $("#scenewrapper").hide();
-              $("#next_button").show()}, 1000); // show selection for 1s before clearing
-            });
-          });
-
-        }
+    //     }
     exp.display_imgs = function(trial){
       $("#imgwrapper").hide();
       $("#img_table").hide();
       // change the images
       $("#img_left").attr('src', "static/imgs/"+trial.img_left);
       $("#img_right").attr("src","static/imgs/"+trial.img_right);
+      console.log("DISPLAYED IMAGES")
 
       // set onclick behaviour
       var images = document.querySelectorAll('.imgs');
@@ -339,22 +341,22 @@ function init_explogic() {
             setTimeout(function(){
               $("#imgwrapper").hide();
               $("#img_table").hide();
-                $("#img_instructions").hide();
-              display_scenes(trial) }, 1000); // show selection for 1s before clearing
+              $("#img_instructions").hide();
+              $("#next_button").show();
+            }, 1000);
+              // display_scenes(trial) }, 1000); // show selection for 1s before clearing
             }
           });
         });
         // preview imgs before play button appears
         setTimeout(function(){
+          console.log("in setTimeout")
           $("#continue_button").show();
           $("#trial_buttons").offset({top: (window.innerHeight/2)-(30/2), left: (exp.innerWidth/2)-(100/2)})
         }, 3000); // preview imgs for 3 secs
         $("#imgwrapper").show();
         $("#img_table").show();
       };
-
-
-
 
           //blocks of the experiment:
           if (!exp.DUMMY_MODE){
