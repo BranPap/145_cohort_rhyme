@@ -281,7 +281,7 @@ function init_explogic() {
   var exp_list_nos = ['A1','A2','B1','B2']
   exp.exp_list_no = _.shuffle(exp_list_nos).pop();
   exp.current_exp_list = exp_lists.filter(a=>a.exp_list==exp.exp_list_no);
-  exp.current_exp_list = _.shuffle(exp.current_exp_list);
+  // exp.current_exp_list = _.shuffle(exp.current_exp_list);
   // exp.current_exp_list = exp.current_exp_list.slice(1, 3) // Use for testing whether responses etc getting logged properly i.e just have a few trials
 
   // Trial set up (see init_trial_detials.js)
