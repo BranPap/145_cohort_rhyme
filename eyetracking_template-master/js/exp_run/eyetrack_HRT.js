@@ -43,6 +43,16 @@ function make_slides(f) {
     }
   });
 
+  slides.start = slide({
+    name : "start",
+    start: function() {
+      // $("#next-button-holder").offset({top: (window.innerHeight/2)-(30/2), left: (exp.innerWidth/2)-(100/2)});
+    },
+    button : function() {
+      exp.go()
+    }
+  });
+
   // include if u wanna have a sound test
 
   // slides.sound_test = slide({
@@ -127,22 +137,22 @@ function make_slides(f) {
       }
     },
 
-    continue : function(e){
-      //console.log("CLICKED CONTINUE")
-      exp.endPreview = true
-      exp.endPreviewTime = Date.now()
+    // continue : function(e){
+    //   //console.log("CLICKED CONTINUE")
+    //   exp.endPreview = true
+    //   exp.endPreviewTime = Date.now()
 
-      $("#imgwrapper").show();
-      $("#continue_button").hide();
+    //   $("#imgwrapper").show();
+    //   $("#continue_button").hide();
 
-      $("#aud").attr("src", "static/audio/"+exp.trial_name+".wav")[0];
-      $("#aud")[0].play();
-      aud.onloadedmetadata = function() {
-        aud_dur = aud.duration;
-        exp.audloadedTime = Date.now()
+    //   $("#aud").attr("src", "static/audio/"+exp.trial_name+".wav")[0];
+    //   $("#aud")[0].play();
+    //   aud.onloadedmetadata = function() {
+    //     aud_dur = aud.duration;
+    //     exp.audloadedTime = Date.now()
 
-      };
-    },
+    //   };
+    // },
 
 
     log_responses : function (){
@@ -156,9 +166,6 @@ function make_slides(f) {
         'img_left' : exp.current_trial.img_left,
         'img_right' : exp.current_trial.img_right,
         'condition': exp.current_trial.condition,
-        // 'current_scene' : exp.actual_scene,
-        // 'alt_scene':exp.alt_scene,
-        // 'selected_scene': exp.scene_clicked,
         'criticality' : exp.current_trial.criticality,
         'exp_list' : exp.exp_list_no,
         "start_time" : _s.trial_start,
@@ -350,19 +357,29 @@ function init_explogic() {
         });
         // preview imgs before play button appears
         setTimeout(function(){
-          console.log("in setTimeout")
           $("#continue_button").show();
-          $("#trial_buttons").offset({top: (window.innerHeight/2)-(30/2), left: (exp.innerWidth/2)-(100/2)})
-        }, 3000); // preview imgs for 3 secs
+          // $("#trial_buttons").offset({top: (window.innerHeight/2)-(30/2), left: (exp.innerWidth/2)-(100/2)})
+          exp.endPreview = true
+          exp.endPreviewTime = Date.now()
+          $("#imgwrapper").show();
+          $("#continue_button").hide();
+          $("#aud").attr("src", "static/audio/"+exp.trial_name+".wav")[0];
+          $("#aud")[0].play();
+          aud.onloadedmetadata = function() {
+            aud_dur = aud.duration;
+            exp.audloadedTime = Date.now()
+          };
+        }, 500); // preview imgs for 3 secs
+        
         $("#imgwrapper").show();
         $("#img_table").show();
       };
 
           //blocks of the experiment:
           if (!exp.DUMMY_MODE){
-            exp.structure=["i0",  "training_and_calibration", "single_trial",  "subj_info", "thanks"];
+            exp.structure=["i0",  "start","training_and_calibration", "single_trial",  "subj_info", "thanks"];
           } else {
-            exp.structure=["i0",  "single_trial",  "subj_info", "thanks"];
+            exp.structure=["i0",  "start","single_trial",  "subj_info", "thanks"];
           }
           exp.data_trials = [];
           exp.slides = make_slides(exp);

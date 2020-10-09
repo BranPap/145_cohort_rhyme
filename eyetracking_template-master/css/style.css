@@ -275,6 +275,10 @@ p.descriptor {
 #scene_instructions{
     z-index: 1;
 }
+#next-button-holder, #trial_buttons{
+    position:relative;
+    top: calc(50vh - 15px);
+}
 /* #continue_button{
 	z-index: 10;
 } */
