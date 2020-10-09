@@ -13,6 +13,17 @@ function make_slides(f) {
     }
   });
 
+  slides.startPage = slide({
+    name : "startPage",
+    exp_start: function() {},
+    start: function() {
+      // $("#next-button-holder").offset({top: (window.innerHeight/2)-(30/2), left: (exp.innerWidth/2)-(100/2)});
+    },
+    button : function() {
+      exp.go()
+    }
+  });
+
   slides.training_and_calibration = slide({
     name: "training_and_calibration",
     start_camera : function(e) {
@@ -43,15 +54,7 @@ function make_slides(f) {
     }
   });
 
-  slides.start = slide({
-    name : "start",
-    start: function() {
-      // $("#next-button-holder").offset({top: (window.innerHeight/2)-(30/2), left: (exp.innerWidth/2)-(100/2)});
-    },
-    button : function() {
-      exp.go()
-    }
-  });
+
 
   // include if u wanna have a sound test
 
@@ -377,9 +380,9 @@ function init_explogic() {
 
           //blocks of the experiment:
           if (!exp.DUMMY_MODE){
-            exp.structure=["i0",  "start","training_and_calibration", "single_trial",  "subj_info", "thanks"];
+            exp.structure=["i0", "training_and_calibration", "startPage", "single_trial",  "subj_info", "thanks"];
           } else {
-            exp.structure=["i0",  "start","single_trial",  "subj_info", "thanks"];
+            exp.structure=["i0","startPage", "single_trial",  "subj_info", "thanks"];
           }
           exp.data_trials = [];
           exp.slides = make_slides(exp);
