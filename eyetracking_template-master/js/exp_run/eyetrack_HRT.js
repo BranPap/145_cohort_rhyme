@@ -333,12 +333,11 @@ function init_explogic() {
       // set onclick behaviour
       var images = document.querySelectorAll('.imgs');
       images.forEach(function(img) {
-        $(img).css("border","0px");
+        $(img).css("border","0px");          
         img.addEventListener('click', function() {
           if (document.getElementById("aud").ended & exp.endPreview == true){
             exp.img_selection_rt = Date.now() - _s.trial_start
             $(this).css("border","2px solid red");
-
             if (img.id == 'img_left'){
               exp.clicked = trial.img_left
             } else {
@@ -352,6 +351,9 @@ function init_explogic() {
               $("#img_table").hide();
               $("#img_instructions").hide();
               $("#next_button").show();
+              // document.querySelectorAll('.imgs').forEach(function(img){
+              //   $(img).css("opacity",1);
+              // });
             }, 1000);
               // display_scenes(trial) }, 1000); // show selection for 1s before clearing
             }
