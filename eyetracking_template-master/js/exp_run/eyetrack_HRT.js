@@ -162,10 +162,6 @@ function make_slides(f) {
       exp.data_trials.push({
         "trial" : exp.trial_name,
         "selected_img" : exp.clicked,
-        'left_choice' : exp.current_trial.img_left,
-        'right_choice' : exp.current_trial.img_right,
-        'left_choice_type' : exp.current_trial.img_left_type,
-        'right_choice_type' : exp.current_trial.img_right_type,
         'img_left' : exp.current_trial.img_left,
         'img_right' : exp.current_trial.img_right,
         'condition': exp.current_trial.condition,
@@ -242,7 +238,6 @@ function make_slides(f) {
   return slides;
 }
 
-
 /// init ///
 function init_explogic() {
 
@@ -280,8 +275,10 @@ function init_explogic() {
   // ppt is randomly assigned a list at init.
   var exp_list_nos = ['A1','A2','B1','B2']
   exp.exp_list_no = _.shuffle(exp_list_nos).pop();
+  console.log("exp.exp_list_no",exp.exp_list_no);
   exp.current_exp_list = exp_lists.filter(a=>a.exp_list==exp.exp_list_no);
-  // exp.current_exp_list = _.shuffle(exp.current_exp_list);
+  console.log("exp.current_exp_list 0th element", exp.current_exp_list[0])
+  exp.current_exp_list = _.shuffle(exp.current_exp_list);
   // exp.current_exp_list = exp.current_exp_list.slice(1, 3) // Use for testing whether responses etc getting logged properly i.e just have a few trials
 
   // Trial set up (see init_trial_detials.js)
